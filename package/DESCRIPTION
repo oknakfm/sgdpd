@@ -1,0 +1,13 @@
+Package: sgdpd
+Type: Package
+Title: Stochastig Gradient descent for Density Power Divergence minimization
+Version: 1.0.0
+Authors@R: 
+    person("Akifumi", "Okuno", , "okuno@ism.ac.jp", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-9621-8853"))
+Description: This package provides sgdpd function, which is an optimizer of density-power divergence for general parametric models. sgdpd function is powered by a stochastic gradient descent with numerical differentiation. 
+URL: https://github.com/oknakfm/sgdpd
+License: MIT + file LICENSE
+Encoding: UTF-8
+Imports: Rcpp (>= 1.0.8.3)
+LinkingTo: Rcpp, RcppArmadillo
