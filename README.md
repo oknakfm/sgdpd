@@ -9,7 +9,19 @@ L_{\alpha}(\theta)
 =
 -\frac{1}{\alpha} \frac{1}{n} \sum_{i=1}^{n} f_{\theta}(z_i)^{\alpha} + \frac{1}{1+\alpha}\int f_{\theta}(z)^{1+\alpha} dz.
 ```
-This optimizer needs minimal effort for users to obtain the optimal parameter, to estimate general parametric models. 
+This optimizer needs minimal effort for users to obtain the optimal parameter, to estimate general parametric models. To cite this package, please cite the following manuscript: 
+```
+@article{okuno2023DPD,
+    year      = {2023},
+    publisher = {CoRR},
+    volume    = {},
+    number    = {},
+    pages     = {},
+    author    = {Akifumi Okuno},
+    title     = {Minimizing robust density power-based divergences for general parametric density models},
+    journal   = {arXiv preprint arXiv:2307.05251}
+}
+```
 
 # Quickstart
 ## Install
