@@ -39,7 +39,7 @@ Using the $`n \times d`$ design matrix `Z`, along with a specified learning rate
 ```R:sgd_dpd
 sgdpd(f=f, Z=Z, lr=0.1, theta0=c(0,1,1), exponent=0.2)
 ```
-No further operation is needed! Please also try <a href="https://github.com/oknakfm/sgdpd/blob/main/demo.R">our demo</a> for skew-normal mixture density estimation. 
+No further operation is needed! Please also see our <a href="https://github.com/oknakfm/sgdpd/blob/main/sgdpd_manual.pdf">user manual</a>" for more details.
 
 ## Contact info.
 - Akifumi Okuno (ISM and RIKEN AIP) https://okuno.net
