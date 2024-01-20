@@ -53,7 +53,7 @@ std::vector<double> apply_f(Rcpp::Function f,
   arma::vec f_vals = arma::zeros(n);
   arma::vec z = arma::zeros(q);
   for(int i=0; i<n; i++){
-    z = Z.row(i);
+    for(int l=0; l<q; l++) z(l) = Z(i,l);
     f_vals(i) = Rcpp::as<double>(f(z, theta));
   }
   return ArmaToStdVec(f_vals);
@@ -145,7 +145,7 @@ Rcpp::List sgdpd(Rcpp::Function f, // f=f(z,theta): parametric model to be optim
   }else{
     n_log = 1;
   }
-  arma::mat theta_log = arma::zeros(n_log,d);
+  arma::mat theta_log = arma::zeros(n_log, d);
 
   // optimization
   for(int itr=0; itr<n_itr; itr++){
@@ -164,7 +164,7 @@ Rcpp::List sgdpd(Rcpp::Function f, // f=f(z,theta): parametric model to be optim
       // stochastic gradient for the first term
       batch_id = batch_id_selector(n,N);
       for(int i=0; i<N; i++){
-        z = Z.row(batch_id[i]);
+        for(int l=0; l<q; l++) z(l) = Z(batch_id[i],l);
         for(int l=0; l<d; l++){
           tp = tm = tmp_theta;
           tp(l) += h; fp = Rcpp::as<double>(f(z, tp));
@@ -176,8 +176,9 @@ Rcpp::List sgdpd(Rcpp::Function f, // f=f(z,theta): parametric model to be optim
     }else{ //DPD
       // stochastic gradient for the first term
       batch_id = batch_id_selector(n,N);
+      
       for(int i=0; i<N; i++){
-        z = Z.row(batch_id[i]);
+        for(int l=0; l<q; l++) z(l) = Z(batch_id[i],l);
         for(int l=0; l<d; l++){
           tp = tm = tmp_theta;
           tp(l) += h; fp = Rcpp::as<double>(f(z, tp));
@@ -186,6 +187,7 @@ Rcpp::List sgdpd(Rcpp::Function f, // f=f(z,theta): parametric model to be optim
           grad_1(l) -= (pow(fc, exponent) * (fp-fm)/(2*h))/(fc*N + lambda1);
         }
       }
+      
       batch_id = batch_id_selector(n,M); double e; int c_l;
       // stochastic gradient for the second term
       for(int j=0; j<M; j++){
@@ -197,10 +199,11 @@ Rcpp::List sgdpd(Rcpp::Function f, // f=f(z,theta): parametric model to be optim
         for(auto l : random_vars){
           c_l = static_cast<int>(l)-1;
           e = r_normal(gen);
-          xi(c_l) = Z(batch_id[j], c_l) + e * sdev(c_l);
-          pd *= exp(-pow(e,2)/2)/(sqrt(2*PI));
+          if(c_l >= 0){
+            xi(c_l) = Z(batch_id[j], c_l) + e * sdev(c_l);
+            pd *= exp(-pow(e,2)/2)/(sqrt(2*PI));
+          }
         }
-
         for(int l=0; l<d; l++){
           tp = tm = tmp_theta;
           tp(l) += h; fp = Rcpp::as<double>(f(xi, tp));
