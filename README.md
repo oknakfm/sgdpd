@@ -11,15 +11,15 @@ L_{\alpha}(\theta)
 ```
 This optimizer needs minimal effort for users to obtain the optimal parameter, to estimate general parametric models. To cite this package, please cite the following manuscript: 
 ```
-@article{okuno2023DPD,
-    year      = {2023},
-    publisher = {CoRR},
+@article{okuno2024DPD,
+    year      = {2024},
     volume    = {},
     number    = {},
     pages     = {},
     author    = {Akifumi Okuno},
     title     = {Minimizing robust density power-based divergences for general parametric density models},
-    journal   = {arXiv preprint arXiv:2307.05251}
+    journal   = {Annals of the Institute of Statistical Mathematics},
+    note      = {To appear.}
 }
 ```
 
